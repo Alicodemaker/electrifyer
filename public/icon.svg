@@ -1,1 +1,40 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="512" height="512" fill="#1f6feb"/><rect x="156" y="156" width="200" height="200" rx="40" fill="#fff"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Colours match src/theme.css (static files can't read CSS variables).
+       Everything sits inside the central 80% so the maskable crop keeps it. -->
+  <defs>
+    <radialGradient id="lamp" cx="50%" cy="35%" r="60%">
+      <stop offset="0" stop-color="#2c313a"/>
+      <stop offset="1" stop-color="#1b1e24"/>
+    </radialGradient>
+    <linearGradient id="rubber" x1="0" x2="1">
+      <stop offset="0" stop-color="#08090a"/>
+      <stop offset=".18" stop-color="#34373c"/>
+      <stop offset=".5" stop-color="#24262a"/>
+      <stop offset=".88" stop-color="#121315"/>
+      <stop offset="1" stop-color="#08090a"/>
+    </linearGradient>
+    <linearGradient id="chrome" x1="0" x2="1">
+      <stop offset="0" stop-color="#4b5059"/>
+      <stop offset=".45" stop-color="#f2f4f7"/>
+      <stop offset="1" stop-color="#4b5059"/>
+    </linearGradient>
+    <filter id="glow" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="9"/>
+    </filter>
+    <filter id="soft" x="-50%" y="-100%" width="200%" height="300%">
+      <feGaussianBlur stdDeviation="28"/>
+    </filter>
+  </defs>
+  <rect width="512" height="512" fill="url(#lamp)"/>
+  <ellipse cx="256" cy="140" rx="110" ry="50" fill="#7a64ff" opacity=".35" filter="url(#soft)"/>
+  <rect x="190" y="104" width="22" height="130" rx="11" fill="url(#chrome)"/>
+  <rect x="300" y="104" width="22" height="130" rx="11" fill="url(#chrome)"/>
+  <rect x="146" y="214" width="220" height="250" rx="54" fill="url(#rubber)"/>
+  <rect x="146" y="214" width="220" height="62" rx="54" fill="#2e3136"/>
+  <rect x="214" y="306" width="84" height="116" rx="38" fill="#121315"/>
+  <rect x="222" y="314" width="68" height="100" rx="32" fill="#34373c"/>
+  <path d="M234 330h44M234 344h44M234 358h44M234 372h44M234 386h44M234 400h44" stroke="#121315" stroke-width="4"/>
+  <path d="M212 142 L228 128 L238 152 L252 118 L262 150 L276 126 L286 146 L300 136" fill="none" stroke="#5a44e6" stroke-width="18" stroke-linejoin="round" filter="url(#glow)"/>
+  <path d="M212 142 L228 128 L238 152 L252 118 L262 150 L276 126 L286 146 L300 136" fill="none" stroke="#a99bff" stroke-width="8" stroke-linejoin="round" stroke-linecap="round"/>
+  <path d="M212 142 L228 128 L238 152 L252 118 L262 150 L276 126 L286 146 L300 136" fill="none" stroke="#f6f4ff" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"/>
+</svg>

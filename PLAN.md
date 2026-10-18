@@ -10,7 +10,7 @@ Bring the existing stun gun screen to life. Holding the trigger (or the spacebar
 2. ✅ **Animated arc.** Draw the arc on a canvas between the prong tips and generate a new jagged path with random side branches every frame, so it never repeats. The brightness flickers, and the violet light spills onto the faceplate while firing.
 3. ✅ **Synthesised sound (ADR 0001).** Build the sound with Web Audio: filtered noise for the crackle, a buzzing hum, and random sharp snaps. Audio switches on with the first trigger press and stops the instant you let go. Tell Safari the sound is media playback so it plays with the iPhone silent switch on (iOS 17 and newer).
 4. ✅ **Snaps drive the effects.** Each snap triggers an extra-bright arc frame and a screen flash. Flashes are capped at 3 per second for photosensitivity safety, and switched off when the phone's reduce-motion setting is on. That rule is built test-first with `tdd`, using Node's built-in test runner (no new dependency). Phones that support web vibration buzz in a crackling pattern while firing; on others, nothing happens.
-5. **App icon.** Replace the starter icons (`icon.svg`, 192px, 512px and maskable) with a stun gun icon in the theme colours. Update the favicon to match.
+5. ✅ **App icon.** Replace the starter icons (`icon.svg`, 192px, 512px and maskable) with a stun gun icon in the theme colours. Update the favicon to match.
 6. **Offline and phone check.** Build the app and confirm the service worker caches everything, including the font. Reload with the network off, test at 390×844 with `webapp-testing`, then run `web-design-guidelines`.
 
 ## What we're NOT doing
