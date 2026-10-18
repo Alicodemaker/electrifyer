@@ -24,7 +24,7 @@ Today they use physical gag toys (buzzer handshakes, fake shock pens) or ad-fill
 
 ## Version 1 must NOT
 
-Ads, accounts, scores or counters, a battery or charge game, other devices, a settings screen, a power slider, a safety switch, a camera flashlight, or any interface outside the device.
+Ads, accounts, scores or counters, a battery or charge game, other devices, a settings screen, a power slider, a safety switch, a camera flashlight, or any interface outside the device (the one exception is a small full-screen button that fades away once full screen).
 
 ## Look and feel
 
