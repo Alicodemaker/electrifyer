@@ -213,21 +213,21 @@
   mask-image: linear-gradient(90deg, black 0 14%, transparent 14% 86%, black 86%);
 }
 
-/* Firing: shown here with CSS only, as a style preview. The real behaviour comes later. */
+/* Firing: main.js sets .is-firing while the trigger is held. */
 
-.stungun:has(.trigger:active) .arc,
-.stungun:has(.trigger:active) .prongs::before { opacity: 1; }
+.stungun.is-firing .arc,
+.stungun.is-firing .prongs::before { opacity: 1; }
 
-.stungun:has(.trigger:active) .plate {
+.stungun.is-firing .plate {
   box-shadow: inset 0 var(--space-2) var(--space-6) var(--color-arc-light), inset 0 calc(-1 * var(--space-1)) var(--space-2) var(--color-rubber-edge);
 }
 
-.stungun:has(.trigger:active) .led {
+.stungun.is-firing .led {
   background: var(--color-danger);
   box-shadow: 0 0 0 2px var(--color-chrome-lo), 0 0 var(--space-3) var(--color-danger);
 }
 
-.trigger:active {
+.is-firing .trigger {
   transform: translateY(1px) scale(0.985);
   box-shadow: inset 0 var(--space-1) var(--space-2) var(--color-rubber-edge);
 }
