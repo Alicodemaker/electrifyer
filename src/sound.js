@@ -5,6 +5,8 @@
 
 const LOOP_SECONDS = 4
 const SNAP_VARIANTS = 4
+// How hard the sound drives the soft-clip and limiter: higher is louder, peaks stay capped.
+const DRIVE = 1.35
 
 export function createSound({ context } = {}) {
   let ctx = null
@@ -40,12 +42,6 @@ export function createSound({ context } = {}) {
     if (ctx.state === 'suspended') ctx.resume().catch(() => {})
   }
 
-  function stopNow() {
-    if (!playing) return
-    for (const source of playing) source.stop()
-    playing = null
-  }
-
   return {
     // Call from a gesture the browser accepts, so later presses can make sound.
     unlock() {
@@ -61,7 +57,6 @@ export function createSound({ context } = {}) {
     start() {
       setup()
       wake()
-      stopNow()
       const now = ctx.currentTime
 
       const loop = ctx.createBufferSource()
@@ -86,7 +81,7 @@ export function createSound({ context } = {}) {
       playing = [loop, buzz]
       master.gain.cancelScheduledValues(now)
       master.gain.setValueAtTime(0, now)
-      master.gain.linearRampToValueAtTime(1, now + 0.004)
+      master.gain.linearRampToValueAtTime(DRIVE, now + 0.004)
     },
 
     // Instant stop. The 10ms fade only exists to avoid a click.
@@ -100,7 +95,7 @@ export function createSound({ context } = {}) {
       playing = null
     },
 
-    snap(strength = 1) {
+    snap(strength) {
       if (!playing) return
       const source = ctx.createBufferSource()
       source.buffer = snaps[Math.floor(Math.random() * snaps.length)]

@@ -119,7 +119,7 @@ export function createArc(canvas, leftProng, rightProng, onIntensity) {
       onIntensity(0)
     },
     // A big snap: brighter, thicker, more strands for a few frames.
-    snap(strength = 1) {
+    snap(strength) {
       boost = Math.max(boost, 0.9 * strength)
     },
   }

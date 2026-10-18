@@ -72,7 +72,7 @@
   flex-direction: column;
   align-items: center;
   overflow: hidden;
-  border-radius: var(--device-radius) var(--device-radius) var(--device-radius) var(--device-radius);
+  border-radius: var(--device-radius);
   /* Rounded sides catch the lamp; the centre stays matte. */
   background:
     linear-gradient(90deg,
@@ -149,8 +149,6 @@
   place-items: center;
   width: var(--trigger-width);
   height: var(--trigger-height);
-  min-width: var(--tap-target);
-  min-height: var(--tap-target);
   padding: 0;
   border: 0;
   border-radius: var(--space-12);
@@ -217,6 +215,53 @@
   background: var(--color-flash);
   opacity: 0;
   pointer-events: none;
+}
+
+/* Full-screen button: small and quiet, top right. Fades away once full screen. */
+.fullscreen {
+  position: fixed;
+  top: max(var(--space-3), env(safe-area-inset-top));
+  right: max(var(--space-3), env(safe-area-inset-right));
+  display: grid;
+  place-items: center;
+  width: var(--tap-target);
+  height: var(--tap-target);
+  padding: 0;
+  border: 1px solid var(--color-rubber-hi);
+  border-radius: var(--radius-pill);
+  background: var(--color-rubber-lo);
+  color: var(--color-chrome);
+  cursor: pointer;
+  transition: opacity var(--fade-duration);
+}
+
+.fullscreen[hidden] { display: none; }
+
+.fullscreen svg {
+  width: var(--space-6);
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.fullscreen__exit,
+:root:fullscreen .fullscreen__enter { display: none; }
+:root:fullscreen .fullscreen__exit { display: inline; }
+
+.fullscreen.is-faded {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.fullscreen:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: var(--space-1);
+}
+
+@media (hover: hover) {
+  .fullscreen:hover { color: var(--color-chrome-hi); }
 }
 
 /* Very short screens (a phone on its side): keep every part full size and scroll. */

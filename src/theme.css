@@ -58,10 +58,8 @@
   --font-heading: 'Archivo', var(--font-body);
   --font-brand-stretch: 125%;
   --font-brand-weight: 850;
-  --font-size-sm: 0.75rem;
   --font-size-md: 1rem;
   --font-size-lg: 1.25rem;
-  --font-size-xl: 1.5rem;
   --line-height: 1.5;
   --letter-brand: 0.04em;
 
@@ -95,4 +93,5 @@
   /* Motion */
   --press-duration: 60ms;
   --flash-duration: 90ms;       /* screen flash on a big snap */
+  --fade-duration: 400ms;       /* full-screen button fading in and out */
 }
