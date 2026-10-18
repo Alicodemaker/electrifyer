@@ -2,28 +2,68 @@
  * THE theme file. Every colour, font and spacing value in the app comes
  * from here. Components use these variables; they never hard-code values.
  *
- * Placeholder values. At kickoff, frontend-design replaces them with the
- * app's real style (see KICKOFF.md). After that, fstack-design keeps new
- * screens consistent with this file.
+ * Electrifyer is a product shot: a matte black stun gun lying on a dark
+ * slate surface under one overhead lamp. The only saturated colour is the
+ * arc, an ionised violet-white (real arcs read white with a violet halo,
+ * not neon cyan). The app is always dark, so there is no light theme.
  */
-:root {
-  /* Colours */
-  --color-bg: #ffffff;
-  --color-surface: #f4f5f7;
-  --color-text: #1b1f24;
-  --color-muted: #5b636e;
-  --color-primary: #1f6feb;
-  --color-on-primary: #ffffff;
-  --color-danger: #d1242f;
 
-  /* Fonts */
+@font-face {
+  font-family: 'Archivo';
+  src: url('./fonts/archivo-italic.woff2') format('woff2');
+  font-style: italic;
+  font-weight: 100 900;
+  font-stretch: 62% 125%;
+  font-display: block;
+}
+
+:root {
+  color-scheme: dark;
+
+  /* Surface the device lies on */
+  --color-bg: #1b1e24;          /* slate bench, also the PWA background */
+  --color-bg-lit: #2c313a;      /* pool of lamp light behind the device */
+  --color-surface: #24262a;     /* matte rubber, base */
+  --color-text: #e6e8ec;        /* reserved: the device has no UI text */
+  --color-muted: #3d4046;       /* moulded lettering, slightly lighter rubber */
+  --color-primary: #a99bff;     /* arc glow, the one accent */
+  --color-on-primary: #f6f4ff;  /* arc core, white-hot */
+  --color-danger: #ff3b2f;      /* status LED lit */
+
+  /* Rubber body shading */
+  --color-rubber-hi: #34373c;
+  --color-rubber-lo: #121315;
+  --color-rubber-edge: #08090a;
+
+  /* Faceplate (hard plastic around the prongs) */
+  --color-plate: #2e3136;
+  --color-plate-hi: #4a4e55;
+
+  /* Chrome prongs */
+  --color-chrome-hi: #f2f4f7;
+  --color-chrome: #a3aab4;
+  --color-chrome-lo: #4b5059;
+
+  /* Arc halo and screen flash */
+  --color-arc-halo: #5a44e6;
+  --color-arc-light: rgb(122 100 255 / 0.28); /* arc light spilling onto nearby surfaces */
+  --color-flash: rgb(214 208 255 / 0.55);
+  --color-shadow: rgb(0 0 0 / 0.6);
+
+  /* LED unlit */
+  --color-led-off: #3a1614;
+
+  /* Fonts: one family. Archivo, wide and heavy italic, is the moulded wordmark. */
   --font-body: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  --font-heading: var(--font-body);
-  --font-size-sm: 0.875rem;
+  --font-heading: 'Archivo', var(--font-body);
+  --font-brand-stretch: 125%;
+  --font-brand-weight: 850;
+  --font-size-sm: 0.75rem;
   --font-size-md: 1rem;
   --font-size-lg: 1.25rem;
-  --font-size-xl: 1.75rem;
+  --font-size-xl: 1.5rem;
   --line-height: 1.5;
+  --letter-brand: 0.04em;
 
   /* Spacing (4px scale) */
   --space-1: 0.25rem;
@@ -32,17 +72,26 @@
   --space-4: 1rem;
   --space-6: 1.5rem;
   --space-8: 2rem;
+  --space-12: 3rem;
+
+  /* Device proportions, phone-first (~390px wide screen) */
+  --device-width: min(78vw, 19rem);
+  --device-radius: 2.75rem;
+  --plate-height: 4.5rem;
+  --prong-length: 6rem;
+  --prong-width: 0.875rem;
+  --prong-gap: 8.5rem;           /* distance between the two prongs: the arc's span */
+  --trigger-width: 7.5rem;
+  --trigger-height: 9.5rem;
+  --led-size: 0.625rem;
+  --grip-height: 11rem;
+  --device-height-large: 46rem; /* whole device on big screens */
 
   /* Shape */
   --radius: 0.5rem;
+  --radius-pill: 999px;
   --tap-target: 44px;
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-bg: #0d1117;
-    --color-surface: #161b22;
-    --color-text: #e6edf3;
-    --color-muted: #9198a1;
-  }
+  /* Motion */
+  --press-duration: 60ms;
 }

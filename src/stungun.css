@@ -1,0 +1,233 @@
+/* The stun gun: the whole screen. Values come from theme.css only. */
+
+.stage {
+  position: relative;
+  min-height: 100dvh;
+  display: flex;
+  justify-content: center;
+  padding-top: max(var(--space-4), env(safe-area-inset-top));
+  /* One overhead lamp, pooled just behind the prongs. */
+  background:
+    radial-gradient(ellipse 70% 45% at 50% 22%, var(--color-bg-lit), transparent 70%),
+    var(--color-bg);
+}
+
+.stungun {
+  position: relative;
+  width: var(--device-width);
+  display: flex;
+  flex-direction: column;
+  /* On a phone the grip runs off the bottom edge, like it's in your hand. */
+  height: calc(100dvh + var(--device-radius));
+}
+
+/* Prongs and arc */
+
+.prongs {
+  position: relative;
+  flex: none;
+  height: var(--prong-length);
+}
+
+.prong {
+  position: absolute;
+  bottom: 0;
+  left: calc(50% - var(--prong-gap) / 2 - var(--prong-width) / 2);
+  width: var(--prong-width);
+  height: 100%;
+  border-radius: var(--radius-pill) var(--radius-pill) var(--space-1) var(--space-1);
+  background: linear-gradient(90deg,
+    var(--color-chrome-lo), var(--color-chrome) 25%, var(--color-chrome-hi) 45%,
+    var(--color-chrome) 65%, var(--color-chrome-lo));
+  box-shadow: 0 var(--space-1) var(--space-2) var(--color-shadow);
+}
+
+.prong--right { left: calc(50% + var(--prong-gap) / 2 - var(--prong-width) / 2); }
+
+.arc {
+  position: absolute;
+  top: var(--space-2);
+  left: calc(50% - var(--prong-gap) / 2);
+  width: var(--prong-gap);
+  height: var(--space-12);
+  overflow: visible;
+  fill: none;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  opacity: 0;
+}
+
+.arc__halo {
+  stroke: var(--color-arc-halo);
+  stroke-width: 7;
+  filter: blur(4px);
+}
+
+.arc__core {
+  stroke: var(--color-on-primary);
+  stroke-width: 2;
+  filter: drop-shadow(0 0 2px var(--color-primary)) drop-shadow(0 0 8px var(--color-primary));
+}
+
+.arc__branch {
+  stroke: var(--color-primary);
+  stroke-width: 1;
+}
+
+/* Light the arc throws onto the backdrop and the faceplate */
+.prongs::before {
+  content: '';
+  position: absolute;
+  inset: calc(-1 * var(--space-12)) calc(-1 * var(--space-8)) 0;
+  background: radial-gradient(ellipse 50% 45% at 50% 40%, var(--color-arc-light), transparent 70%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Rubber shell */
+
+.shell {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  border-radius: var(--device-radius) var(--device-radius) var(--device-radius) var(--device-radius);
+  /* Rounded sides catch the lamp; the centre stays matte. */
+  background:
+    linear-gradient(90deg,
+      var(--color-rubber-edge), var(--color-rubber-lo) 6%, var(--color-rubber-hi) 18%,
+      var(--color-surface) 40%, var(--color-surface) 60%,
+      var(--color-rubber-lo) 88%, var(--color-rubber-edge));
+  box-shadow:
+    0 var(--space-6) var(--space-12) var(--color-shadow),
+    inset 0 1px 0 var(--color-rubber-hi);
+}
+
+.plate {
+  position: relative;
+  width: 100%;
+  height: var(--plate-height);
+  border-radius: var(--device-radius) var(--device-radius) var(--space-4) var(--space-4);
+  background: linear-gradient(180deg, var(--color-plate-hi), var(--color-plate) 35%, var(--color-rubber-lo));
+  box-shadow: inset 0 calc(-1 * var(--space-1)) var(--space-2) var(--color-rubber-edge);
+}
+
+/* Where the prongs enter the faceplate */
+.boss {
+  position: absolute;
+  top: calc(-1 * var(--space-1));
+  left: calc(50% - var(--prong-gap) / 2 - var(--space-4));
+  width: var(--space-8);
+  height: var(--space-6);
+  border-radius: 0 0 var(--radius-pill) var(--radius-pill);
+  background: radial-gradient(circle at 50% 20%, var(--color-plate-hi), var(--color-rubber-lo) 75%);
+}
+
+.boss--right { left: calc(50% + var(--prong-gap) / 2 - var(--space-4)); }
+
+.led {
+  align-self: flex-end;
+  margin: var(--space-4) var(--space-8) 0 0;
+  width: var(--led-size);
+  height: var(--led-size);
+  border-radius: 50%;
+  background: var(--color-led-off);
+  box-shadow: 0 0 0 2px var(--color-chrome-lo), inset 0 1px 2px var(--color-rubber-edge);
+}
+
+/* Moulded into the rubber: lighter rubber, lit from above, so it reads as raised. */
+.brand {
+  /* Floats midway between the LED and the trigger */
+  margin: auto 0 0;
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-weight: var(--font-brand-weight);
+  font-stretch: var(--font-brand-stretch);
+  font-size: var(--font-size-lg);
+  letter-spacing: var(--letter-brand);
+  text-transform: uppercase;
+  color: var(--color-muted);
+  text-shadow: 0 -1px 0 var(--color-rubber-hi), 0 1px 0 var(--color-rubber-edge);
+}
+
+/* Trigger */
+
+.trigger-well {
+  /* Sits low, in the thumb's reach */
+  margin-top: auto;
+  padding: var(--space-2);
+  border-radius: calc(var(--space-12) + var(--space-2));
+  background: var(--color-rubber-lo);
+  box-shadow: inset 0 var(--space-1) var(--space-2) var(--color-rubber-edge), 0 1px 0 var(--color-rubber-hi);
+}
+
+.trigger {
+  display: grid;
+  place-items: center;
+  width: var(--trigger-width);
+  height: var(--trigger-height);
+  min-width: var(--tap-target);
+  min-height: var(--tap-target);
+  padding: 0;
+  border: 0;
+  border-radius: var(--space-12);
+  cursor: pointer;
+  touch-action: none;
+  /* Ribbed rubber over a domed face */
+  background:
+    repeating-linear-gradient(180deg, transparent 0 var(--space-2), var(--color-rubber-lo) var(--space-2) calc(var(--space-2) + 2px)),
+    radial-gradient(ellipse at 50% 30%, var(--color-rubber-hi), var(--color-surface) 60%, var(--color-rubber-lo));
+  box-shadow: 0 var(--space-1) var(--space-2) var(--color-rubber-edge), inset 0 1px 0 var(--color-plate-hi);
+  transition: transform var(--press-duration), box-shadow var(--press-duration);
+}
+
+.trigger:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: var(--space-1);
+}
+
+.trigger__bolt {
+  width: var(--space-6);
+  fill: var(--color-muted);
+  filter: drop-shadow(0 -1px 0 var(--color-rubber-hi));
+}
+
+.grip {
+  flex: none;
+  width: 100%;
+  height: var(--grip-height);
+  margin-top: var(--space-8);
+  /* Moulded finger ridges */
+  background: repeating-linear-gradient(180deg,
+    transparent 0 var(--space-3),
+    var(--color-rubber-edge) var(--space-3) calc(var(--space-3) + 2px),
+    var(--color-rubber-hi) calc(var(--space-3) + 2px) calc(var(--space-3) + 3px));
+  mask-image: linear-gradient(90deg, black 0 14%, transparent 14% 86%, black 86%);
+}
+
+/* Firing: shown here with CSS only, as a style preview. The real behaviour comes later. */
+
+.stungun:has(.trigger:active) .arc,
+.stungun:has(.trigger:active) .prongs::before { opacity: 1; }
+
+.stungun:has(.trigger:active) .plate {
+  box-shadow: inset 0 var(--space-2) var(--space-6) var(--color-arc-light), inset 0 calc(-1 * var(--space-1)) var(--space-2) var(--color-rubber-edge);
+}
+
+.stungun:has(.trigger:active) .led {
+  background: var(--color-danger);
+  box-shadow: 0 0 0 2px var(--color-chrome-lo), 0 0 var(--space-3) var(--color-danger);
+}
+
+.trigger:active {
+  transform: translateY(1px) scale(0.985);
+  box-shadow: inset 0 var(--space-1) var(--space-2) var(--color-rubber-edge);
+}
+
+/* Big screens: phone-size device, centred, shown whole. */
+@media (min-width: 40rem) and (min-height: 48rem) {
+  .stage { align-items: center; padding-top: 0; }
+  .stungun { height: var(--device-height-large); }
+}
