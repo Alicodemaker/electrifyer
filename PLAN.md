@@ -6,10 +6,10 @@ Add a small button in the top-right corner that puts the page into full screen, 
 
 ## Steps
 
-1. Add the button, top right, inside the safe area. It's 44px, quiet rubber-and-chrome styling from `src/theme.css`, with an expand icon that turns into a collapse icon in full screen.
-2. Make the button enter and leave full screen. Fade it out on entering full screen. A tap on the screen (not the trigger) or keyboard focus brings it back, and it fades again after 2.5 seconds.
-3. Hide the button where the browser can't go full screen (iPhone Safari).
-4. Check it at 390×844: it doesn't cover the device or the prongs, firing still works, and the full-screen behaviour works.
+1. ✅ Add the button, top right, inside the safe area. It's 44px, quiet rubber-and-chrome styling from `src/theme.css`, with an expand icon that turns into a collapse icon in full screen.
+2. ✅ Make the button enter and leave full screen. Fade it out on entering full screen. A tap on the screen (not the trigger) or keyboard focus brings it back, and it fades again after 2.5 seconds.
+3. ✅ Hide the button where the browser can't go full screen (iPhone Safari).
+4. ✅ Check it at 390×844: it doesn't cover the device or the prongs, firing still works, and the full-screen behaviour works.
 
 ## What we're NOT doing
 
@@ -19,6 +19,6 @@ Add a small button in the top-right corner that puts the page into full screen, 
 
 ## How we'll know it works
 
-1. Tap the button: the page goes full screen and the button fades away.
-2. Tap the screen: the button reappears. Tap it again to leave full screen. Leave it alone and it fades again.
-3. Holding the trigger in full screen still fires, and doesn't bring the button back.
+1. ✅ Tap the button: the page goes full screen and the button fades away.
+2. ✅ Tap the screen: the button reappears. Tap it again to leave full screen. Leave it alone and it fades again.
+3. ✅ Holding the trigger in full screen still fires, and doesn't bring the button back.

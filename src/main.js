@@ -7,6 +7,9 @@ import { createSound } from './sound.js'
 import { createFlashGate } from './flashGate.js'
 import { nextSnap } from './snaps.js'
 import { createVibration } from './vibration.js'
+import { setupFullscreen } from './fullscreen.js'
+
+setupFullscreen(document.querySelector('.fullscreen'))
 
 const device = document.querySelector('.stungun')
 const trigger = device.querySelector('.trigger')

@@ -93,4 +93,5 @@
   /* Motion */
   --press-duration: 60ms;
   --flash-duration: 90ms;       /* screen flash on a big snap */
+  --fade-duration: 400ms;       /* full-screen button fading in and out */
 }
