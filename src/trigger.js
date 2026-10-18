@@ -26,6 +26,12 @@ export function holdToFire(trigger, { onStart, onStop, onGesture }) {
     e.preventDefault()
     press('pointer')
   })
+  // Touch screens tie the finger to the trigger until it lifts, so
+  // pointerleave never fires for a finger sliding off. Check where it is instead.
+  trigger.addEventListener('pointermove', (e) => {
+    const r = trigger.getBoundingClientRect()
+    if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) release('pointer')
+  })
   for (const type of ['pointerup', 'pointercancel', 'pointerleave']) {
     trigger.addEventListener(type, () => release('pointer'))
   }
