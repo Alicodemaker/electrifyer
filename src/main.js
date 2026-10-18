@@ -1,6 +1,7 @@
 import './theme.css'
 import './base.css'
 import './stungun.css'
+import './looks.css'
 import { holdToFire } from './trigger.js'
 import { createArc } from './arc.js'
 import { createSound } from './sound.js'
@@ -8,8 +9,7 @@ import { createFlashGate } from './flashGate.js'
 import { nextSnap } from './snaps.js'
 import { createVibration } from './vibration.js'
 import { setupFullscreen } from './fullscreen.js'
-
-setupFullscreen(document.querySelector('.fullscreen'))
+import { setupLooks } from './looks.js'
 
 const device = document.querySelector('.stungun')
 const trigger = device.querySelector('.trigger')
@@ -19,6 +19,10 @@ const arc = createArc(
   device.querySelector('.prong--right'),
   (intensity) => device.style.setProperty('--arc-intensity', intensity),
 )
+const switcher = document.querySelector('.looks')
+setupLooks(switcher, () => arc.remeasure())
+setupFullscreen(document.querySelector('.fullscreen'), [switcher])
+
 const sound = createSound()
 const vibration = createVibration(navigator)
 

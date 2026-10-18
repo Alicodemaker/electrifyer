@@ -58,6 +58,8 @@
   --font-heading: 'Archivo', var(--font-body);
   --font-brand-stretch: 125%;
   --font-brand-weight: 850;
+  --font-size-xs: 0.5rem;        /* moulded warning text */
+  --font-size-sm: 0.8125rem;     /* look switcher */
   --font-size-md: 1rem;
   --font-size-lg: 1.25rem;
   --line-height: 1.5;
@@ -84,6 +86,25 @@
   --led-size: 0.625rem;
   --grip-height: 11rem;
   --device-height-large: 46rem; /* whole device on big screens */
+
+  /* Looks (src/looks.css) */
+  --texture-rubber: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.95' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 .5 0 0 0 -.18'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  --color-sheen: rgb(255 255 255 / 0.09);   /* reflection sliding over the rubber */
+  --color-seam-hi: rgb(255 255 255 / 0.05); /* lit lip of the moulding seam */
+  --device-width-large: 24rem;   /* Surface and Front on big screens */
+  --surface-prong-gap: 10rem;
+  --surface-prong-width: 1rem;
+  --surface-prong-stub: 4.25rem; /* visible part of each prong before the screen edge */
+  --surface-plate-height: 7.5rem;
+  --surface-trigger-width: 9rem;
+  --surface-trigger-height: 11.5rem;
+  --surface-screw: 1rem;
+  --inhand-perspective: 700px;
+  --inhand-tilt: 24deg;
+  --inhand-scale: 1.55;
+  --front-prong-gap: 9rem;
+  --front-tip: 2.5rem;           /* electrode tip diameter */
+  --front-dead-zone: 18%;        /* strips at top and bottom that don't fire */
 
   /* Shape */
   --radius: 0.5rem;

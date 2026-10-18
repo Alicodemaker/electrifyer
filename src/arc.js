@@ -16,19 +16,16 @@ export function createArc(canvas, leftProng, rightProng, onIntensity) {
   let frame = 0
   let boost = 0 // extra brightness from a snap, decays each frame
 
+  // Layout positions (offset*), not screen rects, so a 3D-tilted device still lines up.
   function measure() {
     dpr = window.devicePixelRatio || 1
-    const box = canvas.getBoundingClientRect()
-    canvas.width = Math.round(box.width * dpr)
-    canvas.height = Math.round(box.height * dpr)
-    const tipOf = (prong, side) => {
-      const r = prong.getBoundingClientRect()
-      return {
-        x: ((side === 'left' ? r.right : r.left) - box.left) * dpr,
-        top: (r.top - box.top + r.width * 0.5) * dpr,
-        span: r.height * 0.22 * dpr, // only the upper part of the prong
-      }
-    }
+    canvas.width = Math.round(canvas.offsetWidth * dpr)
+    canvas.height = Math.round(canvas.offsetHeight * dpr)
+    const tipOf = (prong, side) => ({
+      x: (prong.offsetLeft - canvas.offsetLeft + (side === 'left' ? prong.offsetWidth : 0)) * dpr,
+      top: (prong.offsetTop - canvas.offsetTop + prong.offsetWidth * 0.5) * dpr,
+      span: prong.offsetHeight * 0.22 * dpr, // only the upper part of the prong
+    })
     tips = { left: tipOf(leftProng, 'left'), right: tipOf(rightProng, 'right') }
   }
 
@@ -118,6 +115,8 @@ export function createArc(canvas, leftProng, rightProng, onIntensity) {
       ctx.clearRect(0, 0, canvas.width, canvas.height)
       onIntensity(0)
     },
+    // Call after the layout changes (e.g. a new look).
+    remeasure: measure,
     // A big snap: brighter, thicker, more strands for a few frames.
     snap(strength) {
       boost = Math.max(boost, 0.9 * strength)

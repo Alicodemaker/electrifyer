@@ -1,0 +1,214 @@
+/* The three looks, set by a class on <body> (src/looks.js). They build on the
+   device in stungun.css. Values come from theme.css only. */
+
+/* Shared by Surface and Front: moulded warning text under the wordmark */
+.look-surface .brand,
+.look-front .brand { text-align: center; }
+
+.look-surface .brand::after,
+.look-front .brand::after {
+  content: 'HIGH VOLTAGE · KEEP AWAY FROM PRONGS';
+  display: block;
+  margin-top: var(--space-2);
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  font-stretch: 100%;
+  letter-spacing: 0.22em;
+}
+
+/* ───────── Surface: the screen is the top of the device ─────────
+   Rubber to every edge; the prongs run off the top of the phone. */
+
+.look-surface {
+  --prong-gap: var(--surface-prong-gap);
+  --prong-width: var(--surface-prong-width);
+  --trigger-width: var(--surface-trigger-width);
+  --trigger-height: var(--surface-trigger-height);
+}
+.look-surface .stage { padding: 0; background: var(--color-surface); }
+.look-surface .stungun { width: 100vw; height: 100dvh; }
+
+.look-surface .prongs {
+  position: absolute;
+  inset: 0 0 auto;
+  height: var(--surface-prong-stub);
+  z-index: 2;
+}
+.look-surface .prong { border-radius: 0 0 var(--space-1) var(--space-1); } /* cut off by the screen edge */
+
+.look-surface .shell {
+  border-radius: 0;
+  background:
+    var(--texture-rubber),
+    linear-gradient(90deg,
+      var(--color-rubber-edge), var(--color-rubber-lo) 5%, var(--color-rubber-hi) 16%,
+      var(--color-surface) 38%, var(--color-surface) 62%, var(--color-rubber-lo) 88%, var(--color-rubber-edge));
+  /* the body's rounded sides curving away at the screen edges */
+  box-shadow:
+    inset var(--space-4) 0 var(--space-4) calc(-1 * var(--space-3)) var(--color-rubber-edge),
+    inset calc(-1 * var(--space-4)) 0 var(--space-4) calc(-1 * var(--space-3)) var(--color-rubber-edge);
+}
+
+/* Seam where the two halves of the moulding meet */
+.look-surface .shell::before {
+  content: '';
+  position: absolute;
+  inset: calc(var(--surface-plate-height) + var(--space-4)) var(--space-3) var(--space-3);
+  border-radius: var(--space-8);
+  border: 1px solid var(--color-rubber-edge);
+  box-shadow: 0 1px 0 var(--color-seam-hi), inset 0 1px 0 var(--color-seam-hi);
+  pointer-events: none;
+}
+
+/* Four screws at the seam's corners */
+.look-surface .shell::after {
+  --screw: radial-gradient(circle,
+    var(--color-chrome) 0 15%, var(--color-chrome-lo) 18% 33%, var(--color-rubber-edge) 36% 45%, transparent 48%);
+  --screw-top: calc(var(--surface-plate-height) + var(--space-6));
+  --screw-side: var(--space-6);
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    var(--screw) var(--screw-side) var(--screw-top) / var(--surface-screw) var(--surface-screw) no-repeat,
+    var(--screw) calc(100% - var(--screw-side)) var(--screw-top) / var(--surface-screw) var(--surface-screw) no-repeat,
+    var(--screw) var(--screw-side) calc(100% - var(--space-6)) / var(--surface-screw) var(--surface-screw) no-repeat,
+    var(--screw) calc(100% - var(--screw-side)) calc(100% - var(--space-6)) / var(--surface-screw) var(--surface-screw) no-repeat;
+}
+
+.look-surface .plate {
+  height: var(--surface-plate-height);
+  border-radius: 0 0 var(--space-12) var(--space-12);
+  background: var(--texture-rubber), linear-gradient(180deg, var(--color-plate-hi), var(--color-plate) 40%, var(--color-rubber-lo));
+}
+.look-surface .boss {
+  top: calc(var(--surface-prong-stub) - var(--space-3));
+  left: calc(50% - var(--prong-gap) / 2 - var(--space-4));
+}
+.look-surface .boss--right { left: calc(50% + var(--prong-gap) / 2 - var(--space-4)); }
+.look-surface .led { margin: var(--space-6) var(--space-12) 0 0; }
+.look-surface .grip { height: var(--grip-height); margin-bottom: var(--space-12); }
+
+/* ───────── In hand: seen in perspective ─────────
+   Trigger end close to you, prongs receding. The sheen follows the phone's tilt. */
+
+.look-in-hand .stage {
+  padding-top: 0;
+  overflow: hidden;
+  background: radial-gradient(ellipse 90% 60% at 50% 105%, var(--color-bg-lit), var(--color-bg) 70%);
+}
+.look-in-hand .stungun {
+  height: 104dvh;
+  /* perspective() inside the transform, not on .stage: that would trap the fixed controls */
+  transform: perspective(var(--inhand-perspective)) rotateX(var(--inhand-tilt)) scale(var(--inhand-scale));
+  transform-origin: 50% 100%;
+}
+.look-in-hand .shell {
+  background:
+    var(--texture-rubber),
+    linear-gradient(90deg,
+      var(--color-rubber-edge), var(--color-rubber-lo) 6%, var(--color-rubber-hi) 18%,
+      var(--color-surface) 40%, var(--color-surface) 60%, var(--color-rubber-lo) 88%, var(--color-rubber-edge));
+}
+.look-in-hand .stungun::after {
+  content: '';
+  position: absolute;
+  inset: var(--prong-length) 0 0;
+  border-radius: var(--device-radius);
+  pointer-events: none;
+  background: linear-gradient(
+    calc(105deg + var(--tilt-x, 0) * 35deg),
+    transparent calc(32% + var(--tilt-y, 0) * 12%),
+    var(--color-sheen) calc(44% + var(--tilt-y, 0) * 12%),
+    transparent calc(56% + var(--tilt-y, 0) * 12%)
+  );
+}
+
+/* ───────── Front: the business end, shown to your friend ─────────
+   Electrode tips pointing out of the screen. The whole middle of the screen fires. */
+
+.look-front { --prong-gap: var(--front-prong-gap); }
+.look-front .stage { padding: 0; }
+.look-front .stungun { width: 100vw; height: 100dvh; }
+.look-front .shell {
+  border-radius: 0;
+  background:
+    var(--texture-rubber),
+    radial-gradient(ellipse 85% 55% at 50% 40%, var(--color-plate), var(--color-rubber-lo) 60%, var(--color-rubber-edge));
+  box-shadow: inset 0 0 var(--space-12) var(--color-rubber-edge);
+}
+.look-front .plate,
+.look-front .grip { display: none; }
+.look-front .led {
+  position: absolute;
+  top: max(var(--space-6), env(safe-area-inset-top));
+  left: var(--space-6);
+  margin: 0;
+}
+
+.look-front .prongs {
+  position: absolute;
+  top: 34%;
+  left: 0;
+  right: 0;
+  height: var(--front-tip);
+  z-index: 2;
+}
+.look-front .prong {
+  top: 0;
+  bottom: auto;
+  left: calc(50% - var(--prong-gap) / 2 - var(--front-tip) / 2);
+  width: var(--front-tip);
+  height: var(--front-tip);
+  border-radius: 50%;
+  background: radial-gradient(circle at 38% 32%,
+    var(--color-chrome-hi), var(--color-chrome) 30%, var(--color-chrome-lo) 75%);
+  box-shadow: 0 0 0 var(--space-1) var(--color-rubber-edge), 0 0 0 calc(var(--space-1) + 1px) var(--color-rubber-hi), 0 var(--space-1) var(--space-3) var(--color-shadow);
+}
+.look-front .prong--right { left: calc(50% + var(--prong-gap) / 2 - var(--front-tip) / 2); }
+
+/* Moulded surround the tips sit in */
+.look-front .prongs::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  top: calc(var(--front-tip) / 2 - var(--space-12) - var(--space-2));
+  left: calc(50% - var(--prong-gap) / 2 - var(--space-12) - var(--space-4));
+  width: calc(var(--prong-gap) + 2 * (var(--space-12) + var(--space-4)));
+  height: calc(2 * (var(--space-12) + var(--space-2)));
+  border-radius: var(--radius-pill);
+  background: var(--texture-rubber), linear-gradient(180deg, var(--color-rubber-edge), var(--color-rubber-lo));
+  box-shadow: inset 0 var(--space-1) var(--space-2) var(--color-rubber-edge), 0 1px 0 var(--color-rubber-hi);
+}
+.look-front .arc { top: calc(-2 * var(--space-12)); height: calc(100% + 4 * var(--space-12)); }
+
+.look-front .brand {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 26%;
+  margin: 0;
+}
+.look-front .trigger-well { margin: 0; padding: 0; background: none; box-shadow: none; }
+.look-front .trigger {
+  position: fixed;
+  inset: var(--front-dead-zone) 0;
+  z-index: 1;
+  width: auto;
+  height: auto;
+  border-radius: 0;
+  opacity: 0;
+}
+
+/* Big screens: Surface and Front become a phone-sized device, centred. */
+@media (min-width: 40rem) and (min-height: 48rem) {
+  .look-surface .stage,
+  .look-front .stage { background: radial-gradient(ellipse 70% 45% at 50% 30%, var(--color-bg-lit), transparent 70%), var(--color-bg); }
+  .look-surface .stungun,
+  .look-front .stungun { width: var(--device-width-large); height: var(--device-height-large); }
+  .look-surface .shell,
+  .look-front .shell { border-radius: var(--device-radius); overflow: hidden; }
+  .look-front .trigger { position: absolute; inset: var(--front-dead-zone) 0; }
+  .look-in-hand .stungun { height: 96dvh; }
+}
