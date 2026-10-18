@@ -5,12 +5,17 @@ const STORAGE_KEY = 'electrifyer-look'
 
 export function setupLooks(switcher, onChange) {
   const buttons = [...switcher.querySelectorAll('[data-look]')]
+  // The browser bar takes the look's backdrop colour: black for In hand.
+  const themeColor = document.querySelector('meta[name="theme-color"]')
+  const css = getComputedStyle(document.documentElement)
+  const barColor = (look) => css.getPropertyValue(look === 'in-hand' ? '--color-void' : '--color-bg').trim()
   let current = load()
 
   function apply(look) {
     document.body.classList.remove(...LOOKS.map((l) => `look-${l}`))
     document.body.classList.add(`look-${look}`)
     for (const button of buttons) button.setAttribute('aria-pressed', String(button.dataset.look === look))
+    themeColor.content = barColor(look)
     current = look
     save(look)
     onChange()

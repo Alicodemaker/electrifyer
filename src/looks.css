@@ -96,7 +96,7 @@
 .look-in-hand .stage {
   padding-top: 0;
   overflow: hidden;
-  background: radial-gradient(ellipse 90% 60% at 50% 105%, var(--color-bg-lit), var(--color-bg) 70%);
+  background: var(--color-void); /* pitch black: no visible screen around the device */
 }
 .look-in-hand .stungun {
   height: 104dvh;
