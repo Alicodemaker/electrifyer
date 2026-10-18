@@ -46,32 +46,11 @@
 
 .arc {
   position: absolute;
-  top: var(--space-2);
-  left: calc(50% - var(--prong-gap) / 2);
-  width: var(--prong-gap);
-  height: var(--space-12);
-  overflow: visible;
-  fill: none;
-  stroke-linejoin: round;
-  stroke-linecap: round;
-  opacity: 0;
-}
-
-.arc__halo {
-  stroke: var(--color-arc-halo);
-  stroke-width: 7;
-  filter: blur(4px);
-}
-
-.arc__core {
-  stroke: var(--color-on-primary);
-  stroke-width: 2;
-  filter: drop-shadow(0 0 2px var(--color-primary)) drop-shadow(0 0 8px var(--color-primary));
-}
-
-.arc__branch {
-  stroke: var(--color-primary);
-  stroke-width: 1;
+  /* Bleeds above the prong tips so the glow isn't clipped */
+  inset: calc(-1 * var(--space-8)) 0 0;
+  width: 100%;
+  height: calc(100% + var(--space-8));
+  pointer-events: none;
 }
 
 /* Light the arc throws onto the backdrop and the faceplate */
@@ -215,8 +194,7 @@
 
 /* Firing: main.js sets .is-firing while the trigger is held. */
 
-.stungun.is-firing .arc,
-.stungun.is-firing .prongs::before { opacity: 1; }
+.stungun.is-firing .prongs::before { opacity: var(--arc-intensity, 1); }
 
 .stungun.is-firing .plate {
   box-shadow: inset 0 var(--space-2) var(--space-6) var(--color-arc-light), inset 0 calc(-1 * var(--space-1)) var(--space-2) var(--color-rubber-edge);
