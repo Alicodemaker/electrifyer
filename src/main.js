@@ -8,6 +8,7 @@ import { createFlashGate } from './flashGate.js'
 import { nextSnap } from './snaps.js'
 import { createVibration } from './vibration.js'
 import { setupFullscreen } from './fullscreen.js'
+import './prototype-realism.js' // PROTOTYPE: variant switcher
 
 setupFullscreen(document.querySelector('.fullscreen'))
 

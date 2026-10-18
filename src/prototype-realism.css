@@ -1,0 +1,221 @@
+/* PROTOTYPE (branch prototype/realistic-device, never merged).
+   Hard-coded values are fine here: the winner gets rebuilt properly on theme.css. */
+
+:root {
+  /* Fine speckle so the rubber reads as a material, not a gradient */
+  --proto-noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.95' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 .5 0 0 0 -.18'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Switcher bar: obviously not part of the design */
+.proto-bar {
+  position: fixed;
+  left: 50%;
+  bottom: max(10px, env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px;
+  border-radius: 999px;
+  background: #ffd400;
+  color: #111;
+  font: 600 13px/1 system-ui, sans-serif;
+  white-space: nowrap;
+  box-shadow: 0 4px 16px rgb(0 0 0 / 0.5);
+}
+.proto-bar button {
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 50%;
+  background: #111;
+  color: #ffd400;
+  font-size: 20px;
+  cursor: pointer;
+}
+.fullscreen { z-index: 10; }
+
+/* Shared by A and C: moulded warning text under the wordmark */
+.v-A .brand::after,
+.v-C .brand::after {
+  content: 'HIGH VOLTAGE · KEEP AWAY FROM PRONGS';
+  display: block;
+  margin-top: 6px;
+  font-size: 0.5rem;
+  font-weight: 700;
+  font-stretch: 100%;
+  letter-spacing: 0.22em;
+}
+
+/* ───────────── A: full-bleed surface ─────────────
+   The screen is the top of the device. Prongs run off the top edge of the phone. */
+
+.v-A {
+  --trigger-width: 9rem;
+  --trigger-height: 11.5rem;
+  --prong-gap: 10rem;
+  --prong-width: 1rem;
+}
+.v-A .stage { padding: 0; background: var(--color-surface); }
+.v-A .stungun { width: 100vw; height: 100dvh; }
+
+.v-A .prongs {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 4.25rem;
+  z-index: 2;
+}
+.v-A .prong { border-radius: 0 0 3px 3px; } /* cut off by the screen edge */
+
+.v-A .shell {
+  border-radius: 0;
+  background:
+    var(--proto-noise),
+    linear-gradient(90deg, #050506, #17181b 5%, #34373c 16%, #26282c 38%, #24262a 62%, #141517 88%, #050506);
+  /* the body's rounded sides curving away at the screen edges */
+  box-shadow: inset 14px 0 18px -10px #000, inset -14px 0 18px -10px #000;
+}
+
+/* Parting line where the two halves of the moulding meet, plus four screws */
+.v-A .shell::before {
+  content: '';
+  position: absolute;
+  inset: 8.5rem 12px 12px;
+  border-radius: 1.75rem;
+  border: 1px solid #0a0a0b;
+  box-shadow: 0 1px 0 rgb(255 255 255 / 0.05), inset 0 1px 0 rgb(255 255 255 / 0.04);
+  pointer-events: none;
+}
+.v-A .shell::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  --screw: radial-gradient(circle, #8a9099 0 2px, #3b3f46 2.5px 5px, #0b0b0c 5.5px 7px, transparent 7.5px);
+  background:
+    var(--screw) 26px 9.75rem / 16px 16px no-repeat,
+    var(--screw) calc(100% - 26px) 9.75rem / 16px 16px no-repeat,
+    var(--screw) 26px calc(100% - 28px) / 16px 16px no-repeat,
+    var(--screw) calc(100% - 26px) calc(100% - 28px) / 16px 16px no-repeat;
+}
+
+.v-A .plate {
+  height: 7.5rem;
+  border-radius: 0 0 2.5rem 2.5rem;
+  background:
+    var(--proto-noise),
+    linear-gradient(180deg, #3a3e45, #2b2e33 40%, #17181b);
+}
+.v-A .boss { top: 3.5rem; width: 2.5rem; height: 2rem; left: calc(50% - var(--prong-gap) / 2 - 1.25rem + var(--prong-width) / 2); }
+.v-A .boss--right { left: calc(50% + var(--prong-gap) / 2 - 1.25rem - var(--prong-width) / 2 + var(--prong-width)); }
+.v-A .brand { text-align: center; }
+.v-A .led { margin: var(--space-6) var(--space-12) 0 0; }
+.v-A .grip { height: 9rem; margin-bottom: 4rem; }
+
+/* ───────────── B: in hand ─────────────
+   Seen in perspective: trigger end close to you, prongs receding. Light slides as you tilt. */
+
+.v-B .stage {
+  perspective: 700px;
+  perspective-origin: 50% 110%;
+  padding-top: 2vh;
+  overflow: hidden;
+  background: radial-gradient(ellipse 90% 60% at 50% 105%, #2f343e, #121418 70%);
+}
+.v-B .stungun {
+  width: min(94vw, 26rem);
+  height: 104dvh;
+  transform: rotateX(24deg) scale(1.55);
+  transform-origin: 50% 100%;
+}
+.v-B .shell {
+  background:
+    var(--proto-noise),
+    linear-gradient(90deg, #050506, #17181b 6%, #393c42 18%, #26282c 40%, #24262a 60%, #141517 88%, #050506);
+  box-shadow: 0 40px 60px rgb(0 0 0 / 0.7);
+}
+.v-B .stungun::after {
+  content: '';
+  position: absolute;
+  inset: var(--prong-length) 0 0;
+  border-radius: var(--device-radius);
+  pointer-events: none;
+  background: linear-gradient(
+    calc(105deg + var(--tilt-x, 0) * 35deg),
+    transparent calc(32% + var(--tilt-y, 0) * 12%),
+    rgb(255 255 255 / 0.09) calc(44% + var(--tilt-y, 0) * 12%),
+    transparent calc(56% + var(--tilt-y, 0) * 12%)
+  );
+}
+
+/* ───────────── C: business end ─────────────
+   Shown to the friend: the front face with the electrodes pointing at them.
+   The whole screen is the (invisible) trigger. */
+
+.v-C { --prong-gap: 9rem; }
+.v-C .stage { padding: 0; }
+.v-C .stungun { width: 100vw; height: 100dvh; }
+.v-C .shell {
+  border-radius: 0;
+  background:
+    var(--proto-noise),
+    radial-gradient(ellipse 85% 55% at 50% 40%, #2e3136, #18191c 60%, #0b0b0c);
+  box-shadow: inset 0 0 70px #000;
+}
+.v-C .plate,
+.v-C .grip { display: none; }
+.v-C .led { position: absolute; top: max(1.5rem, env(safe-area-inset-top)); left: 1.5rem; margin: 0; }
+
+.v-C .prongs {
+  position: absolute;
+  top: 34%;
+  left: 0;
+  right: 0;
+  height: 2.5rem;
+  z-index: 2;
+}
+.v-C .prong {
+  top: 0;
+  bottom: auto;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  left: calc(50% - var(--prong-gap) / 2 - 1.25rem);
+  background: radial-gradient(circle at 38% 32%, #fff, #c9ced6 18%, #8b929c 45%, #3c4048 75%);
+  box-shadow: 0 0 0 5px #0b0b0c, 0 0 0 6px #3a3d43, 0 6px 12px #000;
+}
+.v-C .prong--right { left: calc(50% + var(--prong-gap) / 2 - 1.25rem); }
+/* Moulded surround the electrodes sit in */
+.v-C .prongs::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  top: -2.25rem;
+  left: calc(50% - var(--prong-gap) / 2 - 3.5rem);
+  width: calc(var(--prong-gap) + 7rem);
+  height: 7rem;
+  border-radius: 3.5rem;
+  background: var(--proto-noise), linear-gradient(180deg, #060607, #141518);
+  box-shadow: inset 0 3px 8px #000, 0 1px 0 #3a3d43;
+}
+.v-C .arc { top: -4rem; height: calc(100% + 8rem); }
+
+.v-C .brand {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 24%;
+  margin: 0;
+  text-align: center;
+}
+.v-C .trigger-well { margin: 0; padding: 0; background: none; box-shadow: none; }
+.v-C .trigger {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  width: auto;
+  height: auto;
+  border-radius: 0;
+  opacity: 0;
+}

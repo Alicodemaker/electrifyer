@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "node --test"
+    "test": "node --test",
+    "prototype": "vite --host --open '/?variant=A'"
   },
   "devDependencies": {
     "vite": "^8.3.1",
