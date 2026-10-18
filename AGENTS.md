@@ -4,15 +4,15 @@ This is the only rules file for this repo. `CLAUDE.md` points here, and rules mu
 
 ## Project brief
 
-_Not filled in yet. KICKOFF.md fills this in from BRIEF.md._
+See `BRIEF.md` for the full brief, `GLOSSARY.md` for terms and `docs/adr/` for decisions.
 
-- **App:** _name and one-line description_
-- **For:** _who uses it_
-- **Main problem:** _what it solves_
-- **Version 1 must:** _core features_
-- **Version 1 must NOT:** _out of scope_
-- **Look and feel:** _style in a few words_
-- **Data:** _what it stores and where_
+- **App:** Electrifyer: a prank toy that turns a phone into a convincing handheld stun gun.
+- **For:** pranksters who hold their phone up to a friend and "zap" them.
+- **Main problem:** gag gadgets and ad-filled taser apps don't feel real. This opens instantly from a link and gets a real flinch.
+- **Version 1 must:** show one full-screen realistic stun gun; fire while the trigger (or spacebar) is held and stop instantly on release; show a flickering arc between the prongs plus a screen flash; play a live-synthesised crackle, hum and snaps; vibrate where supported; show phone-size and centred on big screens; work offline.
+- **Version 1 must NOT:** ads, accounts, scores, battery game, other devices, settings, power slider, safety switch, camera flashlight, or any interface outside the device.
+- **Look and feel:** realistic and tactile: matte black rubber, chrome, dark backdrop, electric blue-white arc.
+- **Data:** none. Nothing stored, no analytics, no network.
 
 ## General rules
 
@@ -23,6 +23,16 @@ _Not filled in yet. KICKOFF.md fills this in from BRIEF.md._
 - **Keep it simple.** Add no dependency, abstraction or feature that the current plan doesn't need. When in doubt, leave it out.
 - **Stack.** Use Vite and `vite-plugin-pwa`, with plain JS/CSS by default. Add a UI framework only if a plan explicitly calls for one.
 - **Deploy.** Pushing to `main` deploys to GitHub Pages under `/<repo>/` (`.github/workflows/deploy.yml`). Never hard-code `/` as a root path: use relative paths or Vite's `import.meta.env.BASE_URL`.
+
+## Agent skills
+
+### Issue tracker
+
+Issues and specs live as local markdown files under `.scratch/`. See `docs/agents/issue-tracker.md`.
+
+### Domain docs
+
+Single-context: one `GLOSSARY.md` and `docs/adr/` at the repo root. See `docs/agents/domain.md`.
 
 ## Skill map
 

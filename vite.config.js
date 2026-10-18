@@ -14,16 +14,16 @@ export default defineConfig({
       injectRegister: 'auto',
       includeAssets: ['icon.svg'],
       manifest: {
-        name: 'App Starter',
-        short_name: 'Starter',
-        description: 'Mobile-first PWA starter',
+        name: 'Electrifyer',
+        short_name: 'Electrifyer',
+        description: 'Turn your phone into a stun gun. Hold the trigger to fire.',
         start_url: base,
         scope: base,
         display: 'standalone',
         orientation: 'portrait',
-        // Keep in sync with --color-bg / --color-primary in src/theme.css
-        background_color: '#ffffff',
-        theme_color: '#1f6feb',
+        // Keep in sync with --color-bg in src/theme.css (the app is always dark)
+        background_color: '#1b1e24',
+        theme_color: '#1b1e24',
         icons: [
           { src: 'icon-192.png', sizes: '192x192', type: 'image/png' },
           { src: 'icon-512.png', sizes: '512x512', type: 'image/png' },
