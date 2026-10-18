@@ -210,6 +210,15 @@
   box-shadow: inset 0 var(--space-1) var(--space-2) var(--color-rubber-edge);
 }
 
+/* Screen flash on big snaps. main.js animates it, at most 3 times a second. */
+.flash {
+  position: fixed;
+  inset: 0;
+  background: var(--color-flash);
+  opacity: 0;
+  pointer-events: none;
+}
+
 /* Very short screens (a phone on its side): keep every part full size and scroll. */
 @media (max-height: 28rem) {
   body { overflow-y: auto; }
