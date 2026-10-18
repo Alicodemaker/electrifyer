@@ -40,12 +40,6 @@ export function createSound({ context } = {}) {
     if (ctx.state === 'suspended') ctx.resume().catch(() => {})
   }
 
-  function stopNow() {
-    if (!playing) return
-    for (const source of playing) source.stop()
-    playing = null
-  }
-
   return {
     // Call from a gesture the browser accepts, so later presses can make sound.
     unlock() {
@@ -61,7 +55,6 @@ export function createSound({ context } = {}) {
     start() {
       setup()
       wake()
-      stopNow()
       const now = ctx.currentTime
 
       const loop = ctx.createBufferSource()
@@ -100,7 +93,7 @@ export function createSound({ context } = {}) {
       playing = null
     },
 
-    snap(strength = 1) {
+    snap(strength) {
       if (!playing) return
       const source = ctx.createBufferSource()
       source.buffer = snaps[Math.floor(Math.random() * snaps.length)]

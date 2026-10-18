@@ -72,7 +72,7 @@
   flex-direction: column;
   align-items: center;
   overflow: hidden;
-  border-radius: var(--device-radius) var(--device-radius) var(--device-radius) var(--device-radius);
+  border-radius: var(--device-radius);
   /* Rounded sides catch the lamp; the centre stays matte. */
   background:
     linear-gradient(90deg,
@@ -149,8 +149,6 @@
   place-items: center;
   width: var(--trigger-width);
   height: var(--trigger-height);
-  min-width: var(--tap-target);
-  min-height: var(--tap-target);
   padding: 0;
   border: 0;
   border-radius: var(--space-12);

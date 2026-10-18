@@ -3,12 +3,13 @@ const MAX_FLASHES = 3
 const WINDOW_MS = 1000
 
 export function createFlashGate({ reducedMotion }) {
-  const recent = [] // times of allowed flashes, oldest first
+  let recent = [] // times of allowed flashes in the last second
 
   return {
     tryFlash(now) {
       if (reducedMotion()) return false
-      if (recent.filter((t) => now - t < WINDOW_MS).length >= MAX_FLASHES) return false
+      recent = recent.filter((t) => now - t < WINDOW_MS)
+      if (recent.length >= MAX_FLASHES) return false
       recent.push(now)
       return true
     },
