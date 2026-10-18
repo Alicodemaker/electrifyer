@@ -220,6 +220,7 @@
 /* Full-screen button: small and quiet, top right. Fades away once full screen. */
 .fullscreen {
   position: fixed;
+  z-index: 3;
   top: max(var(--space-3), env(safe-area-inset-top));
   right: max(var(--space-3), env(safe-area-inset-right));
   display: grid;
@@ -250,6 +251,50 @@
 :root:fullscreen .fullscreen__enter { display: none; }
 :root:fullscreen .fullscreen__exit { display: inline; }
 
+/* Look switcher: same quiet rubber-and-chrome as the full-screen button */
+.looks {
+  position: fixed;
+  left: 50%;
+  bottom: max(var(--space-3), env(safe-area-inset-bottom));
+  z-index: 3;
+  display: flex;
+  gap: var(--space-1);
+  padding: var(--space-1);
+  translate: -50% 0;
+  border: 1px solid var(--color-rubber-hi);
+  border-radius: var(--radius-pill);
+  background: var(--color-rubber-lo);
+  transition: opacity var(--fade-duration);
+}
+
+.looks button {
+  min-height: var(--tap-target);
+  padding: 0 var(--space-4);
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: none;
+  color: var(--color-chrome);
+  font: 600 var(--font-size-sm) / 1 var(--font-body);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.looks button[aria-pressed='true'] {
+  background: var(--color-plate);
+  color: var(--color-chrome-hi);
+  box-shadow: inset 0 1px 0 var(--color-plate-hi);
+}
+
+.looks button:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 1px;
+}
+
+@media (hover: hover) {
+  .looks button:hover { color: var(--color-chrome-hi); }
+}
+
+.looks.is-faded,
 .fullscreen.is-faded {
   opacity: 0;
   pointer-events: none;
