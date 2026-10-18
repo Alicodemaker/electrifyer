@@ -105,6 +105,8 @@
     inset 0 1px 0 var(--color-rubber-hi);
 }
 
+.shell > * { flex-shrink: 0; }
+
 .plate {
   position: relative;
   width: 100%;
@@ -183,6 +185,10 @@
   transition: transform var(--press-duration), box-shadow var(--press-duration);
 }
 
+@media (hover: hover) {
+  .trigger:hover { box-shadow: 0 var(--space-1) var(--space-2) var(--color-rubber-edge), inset 0 1px 0 var(--color-chrome-lo); }
+}
+
 .trigger:focus-visible {
   outline: 2px solid var(--color-primary);
   outline-offset: var(--space-1);
@@ -224,6 +230,12 @@
 .trigger:active {
   transform: translateY(1px) scale(0.985);
   box-shadow: inset 0 var(--space-1) var(--space-2) var(--color-rubber-edge);
+}
+
+/* Very short screens (a phone on its side): keep every part full size and scroll. */
+@media (max-height: 28rem) {
+  body { overflow-y: auto; }
+  .stungun { height: auto; }
 }
 
 /* Big screens: phone-size device, centred, shown whole. */
