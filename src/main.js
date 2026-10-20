@@ -1,7 +1,6 @@
 import './theme.css'
 import './base.css'
 import './stungun.css'
-import './looks.css'
 import { holdToFire } from './trigger.js'
 import { createArc } from './arc.js'
 import { createSound } from './sound.js'
@@ -9,7 +8,8 @@ import { createFlashGate } from './flashGate.js'
 import { nextSnap } from './snaps.js'
 import { createVibration } from './vibration.js'
 import { setupFullscreen } from './fullscreen.js'
-import { setupLooks } from './looks.js'
+import { followTilt } from './tilt.js'
+import { fitProngsToTop } from './fit.js'
 
 const device = document.querySelector('.stungun')
 const trigger = device.querySelector('.trigger')
@@ -19,9 +19,9 @@ const arc = createArc(
   device.querySelector('.prong--right'),
   (intensity) => device.style.setProperty('--arc-intensity', intensity),
 )
-const switcher = document.querySelector('.looks')
-setupLooks(switcher, () => arc.remeasure())
-setupFullscreen(document.querySelector('.fullscreen'), [switcher])
+fitProngsToTop(document.querySelector('.stage'), device, device.querySelector('.prong'), () => arc.remeasure())
+followTilt()
+setupFullscreen(document.querySelector('.fullscreen'))
 
 const sound = createSound()
 const vibration = createVibration(navigator)
@@ -32,11 +32,12 @@ const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)')
 const flashGate = createFlashGate({ reducedMotion: () => reducedMotion.matches })
 
 // Big snaps land at random moments while firing, with one the instant it starts.
+// Flashes are kept to a minimum: only that opening crack lights the screen, faintly.
 let snapTimer = 0
-function snap(strength) {
+function snap(strength, opening = false) {
   arc.snap(strength)
   sound.snap(strength)
-  if (flashGate.tryFlash(performance.now())) {
+  if (opening && flashGate.tryFlash(performance.now())) {
     flash.animate([{ opacity: strength }, { opacity: 0 }], { duration: flashDuration, easing: 'ease-out' })
   }
   const next = nextSnap()
@@ -49,7 +50,7 @@ holdToFire(trigger, {
     arc.start()
     sound.start()
     vibration.start()
-    snap(1)
+    snap(1, true)
   },
   onStop() {
     device.classList.remove('is-firing')
