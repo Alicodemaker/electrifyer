@@ -2,13 +2,13 @@
 
 ## What we're doing
 
-Keep just the In hand look, drop the switcher, stretch the device so its prongs reach just below the top edge on any phone, and cut the screen flashes down to one faint flash per press.
+Keep just the In hand look, drop the switcher, give the device real proportions, and keep the screen flashes faint and sparing.
 
 ## Steps
 
 1. ✅ **One view.** Fold In hand into the base device styles (pitch-black backdrop, perspective, rubber texture, tilt sheen in `src/tilt.js`). Remove the Surface and Front looks, the switcher and the saved setting.
-2. ✅ **Prongs to the top.** Anchor the device to the bottom of the screen. `src/fit.js` finds the height that puts the prong tips 1.75rem below the top edge (plus the notch area) on load and on resize.
-3. ✅ **Minimal flashes.** Only the opening crack of each press flashes the screen, at a much fainter colour. The 3-per-second safety cap and reduced-motion rule stay.
+2. ✅ **Real proportions.** Anchor the device to the bottom of the screen and make it 2.4 times as long as it is wide, like a real stun gun. (Stretching it until the prongs touched the top made it look far too long.) On short screens it shrinks a little so the prongs stay on screen.
+3. ✅ **Sparing flashes.** Only the opening crack and the hardest snaps flash the screen, faintly. The 3-per-second safety cap and reduced-motion rule stay.
 4. ✅ **Docs and check.** Update the brief, `AGENTS.md` and the glossary. Test at several phone sizes, plus laptop and landscape.
 
 ## What we're NOT doing
@@ -18,5 +18,5 @@ Keep just the In hand look, drop the switcher, stretch the device so its prongs 
 
 ## How we'll know it works
 
-1. On any phone, the prong tips sit just below the top edge and the trigger is in thumb reach.
-2. Holding the trigger for several seconds flashes the screen once, faintly.
+1. On any phone the device looks like a real stun gun, with the prongs on screen and the trigger in thumb reach.
+2. Holding the trigger flashes the screen faintly, about once every second or two.

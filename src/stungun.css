@@ -7,10 +7,8 @@
   height: 100dvh;
   display: flex;
   justify-content: center;
-  /* Anchored to the bottom: a taller device reaches further up the screen */
+  /* Anchored to the bottom, like it's in your hand: the grip end is closest to you */
   align-items: flex-end;
-  /* Not spacing: src/fit.js reads this as how far below the top edge the prong tips sit */
-  padding-top: calc(env(safe-area-inset-top) + var(--prong-clearance));
   overflow: hidden;
   background: var(--color-bg);
 }
@@ -20,7 +18,7 @@
   width: var(--device-width);
   display: flex;
   flex-direction: column;
-  height: 100dvh; /* src/fit.js stretches this until the prongs reach the top */
+  height: calc(var(--device-width) * var(--device-length)); /* real proportions, not stretched to fit */
   /* perspective() inside the transform, not on .stage: that would trap the fixed controls */
   transform: perspective(var(--perspective)) rotateX(var(--tilt)) scale(var(--device-scale));
   transform-origin: 50% 100%;

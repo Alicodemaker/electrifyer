@@ -46,7 +46,7 @@
   /* Arc halo and screen flash */
   --color-arc-halo: #5a44e6;
   --color-arc-light: rgb(122 100 255 / 0.28); /* arc light spilling onto nearby surfaces */
-  --color-flash: rgb(214 208 255 / 0.22); /* faint: one flash per press */
+  --color-flash: rgb(214 208 255 / 0.3); /* faint: opening crack and hardest snaps only */
   --color-shadow: rgb(0 0 0 / 0.6);
 
   /* LED unlit */
@@ -72,7 +72,7 @@
   --space-12: 3rem;
 
   /* Device proportions, phone-first (~390px wide screen) */
-  --device-width: min(94vw, 26rem);
+  --device-width: min(94vw, 26rem, 45dvh); /* the dvh cap keeps the prongs on short screens */
   --device-radius: 2.75rem;
   --plate-height: 4.5rem;
   --prong-length: 6rem;
@@ -82,7 +82,7 @@
   --trigger-height: 9.5rem;
   --led-size: 0.625rem;
   --grip-height: 11rem;
-  --prong-clearance: 1.75rem;    /* gap between the prong tips and the top edge */
+  --device-length: 2.4;          /* length ÷ width, like a real stun gun */
   /* Seen in your hand: tilted away in perspective, trigger end close to you */
   --perspective: 700px;
   --tilt: 24deg;
