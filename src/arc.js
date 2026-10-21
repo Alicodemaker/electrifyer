@@ -115,8 +115,6 @@ export function createArc(canvas, leftProng, rightProng, onIntensity) {
       ctx.clearRect(0, 0, canvas.width, canvas.height)
       onIntensity(0)
     },
-    // Call after the layout changes (e.g. a new look).
-    remeasure: measure,
     // A big snap: brighter, thicker, more strands for a few frames.
     snap(strength) {
       boost = Math.max(boost, 0.9 * strength)

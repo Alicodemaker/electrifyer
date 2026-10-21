@@ -21,8 +21,7 @@
   color-scheme: dark;
 
   /* Surface the device lies on */
-  --color-bg: #1b1e24;          /* slate bench, also the PWA background */
-  --color-bg-lit: #2c313a;      /* pool of lamp light behind the device */
+  --color-bg: #000;             /* pitch black: the screen around the device disappears */
   --color-surface: #24262a;     /* matte rubber, base */
   --color-text: #e6e8ec;        /* reserved: the device has no UI text */
   --color-muted: #3d4046;       /* moulded lettering, slightly lighter rubber */
@@ -47,7 +46,7 @@
   /* Arc halo and screen flash */
   --color-arc-halo: #5a44e6;
   --color-arc-light: rgb(122 100 255 / 0.28); /* arc light spilling onto nearby surfaces */
-  --color-flash: rgb(214 208 255 / 0.55);
+  --color-flash: rgb(214 208 255 / 0.3); /* faint: opening crack and hardest snaps only */
   --color-shadow: rgb(0 0 0 / 0.6);
 
   /* LED unlit */
@@ -58,8 +57,6 @@
   --font-heading: 'Archivo', var(--font-body);
   --font-brand-stretch: 125%;
   --font-brand-weight: 850;
-  --font-size-xs: 0.5rem;        /* moulded warning text */
-  --font-size-sm: 0.8125rem;     /* look switcher */
   --font-size-md: 1rem;
   --font-size-lg: 1.25rem;
   --line-height: 1.5;
@@ -75,7 +72,7 @@
   --space-12: 3rem;
 
   /* Device proportions, phone-first (~390px wide screen) */
-  --device-width: min(78vw, 19rem);
+  --device-width: min(94vw, 26rem, 45dvh); /* the dvh cap keeps the prongs on short screens */
   --device-radius: 2.75rem;
   --plate-height: 4.5rem;
   --prong-length: 6rem;
@@ -85,27 +82,15 @@
   --trigger-height: 9.5rem;
   --led-size: 0.625rem;
   --grip-height: 11rem;
-  --device-height-large: 46rem; /* whole device on big screens */
+  --device-length: 2.4;          /* length ÷ width, like a real stun gun */
+  /* Seen in your hand: tilted away in perspective, trigger end close to you */
+  --perspective: 700px;
+  --tilt: 24deg;
+  --device-scale: 1.55;
 
-  /* Looks (src/looks.css) */
+  /* Rubber texture and the sheen that follows the phone's tilt */
   --texture-rubber: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.95' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 .5 0 0 0 -.18'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  --color-void: #000;            /* In hand backdrop: the screen disappears */
-  --color-sheen: rgb(255 255 255 / 0.09);   /* reflection sliding over the rubber */
-  --color-seam-hi: rgb(255 255 255 / 0.05); /* lit lip of the moulding seam */
-  --device-width-large: 24rem;   /* Surface and Front on big screens */
-  --surface-prong-gap: 10rem;
-  --surface-prong-width: 1rem;
-  --surface-prong-stub: 4.25rem; /* visible part of each prong before the screen edge */
-  --surface-plate-height: 7.5rem;
-  --surface-trigger-width: 9rem;
-  --surface-trigger-height: 11.5rem;
-  --surface-screw: 1rem;
-  --inhand-perspective: 700px;
-  --inhand-tilt: 24deg;
-  --inhand-scale: 1.55;
-  --front-prong-gap: 9rem;
-  --front-tip: 2.5rem;           /* electrode tip diameter */
-  --front-dead-zone: 18%;        /* strips at top and bottom that don't fire */
+  --color-sheen: rgb(255 255 255 / 0.09);
 
   /* Shape */
   --radius: 0.5rem;

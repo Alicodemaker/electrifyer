@@ -1,15 +1,16 @@
-/* The stun gun: the whole screen. Values come from theme.css only. */
+/* The stun gun, seen in your hand: trigger end close to you, prongs receding
+   towards the top edge, on pitch black so the screen itself disappears.
+   Values come from theme.css only. */
 
 .stage {
   position: relative;
-  min-height: 100dvh;
+  height: 100dvh;
   display: flex;
   justify-content: center;
-  padding-top: max(var(--space-4), env(safe-area-inset-top));
-  /* One overhead lamp, pooled just behind the prongs. */
-  background:
-    radial-gradient(ellipse 70% 45% at 50% 22%, var(--color-bg-lit), transparent 70%),
-    var(--color-bg);
+  /* Anchored to the bottom, like it's in your hand: the grip end is closest to you */
+  align-items: flex-end;
+  overflow: hidden;
+  background: var(--color-bg);
 }
 
 .stungun {
@@ -17,8 +18,25 @@
   width: var(--device-width);
   display: flex;
   flex-direction: column;
-  /* On a phone the grip runs off the bottom edge, like it's in your hand. */
-  height: calc(100dvh + var(--device-radius));
+  height: calc(var(--device-width) * var(--device-length)); /* real proportions, not stretched to fit */
+  /* perspective() inside the transform, not on .stage: that would trap the fixed controls */
+  transform: perspective(var(--perspective)) rotateX(var(--tilt)) scale(var(--device-scale));
+  transform-origin: 50% 100%;
+}
+
+/* A sheen that slides over the rubber as the phone tilts (src/tilt.js) */
+.stungun::after {
+  content: '';
+  position: absolute;
+  inset: var(--prong-length) 0 0;
+  border-radius: var(--device-radius);
+  pointer-events: none;
+  background: linear-gradient(
+    calc(105deg + var(--tilt-x, 0) * 35deg),
+    transparent calc(32% + var(--tilt-y, 0) * 12%),
+    var(--color-sheen) calc(44% + var(--tilt-y, 0) * 12%),
+    transparent calc(56% + var(--tilt-y, 0) * 12%)
+  );
 }
 
 /* Prongs and arc */
@@ -73,8 +91,9 @@
   align-items: center;
   overflow: hidden;
   border-radius: var(--device-radius);
-  /* Rounded sides catch the lamp; the centre stays matte. */
+  /* Speckled rubber; the rounded sides catch the light, the centre stays matte. */
   background:
+    var(--texture-rubber),
     linear-gradient(90deg,
       var(--color-rubber-edge), var(--color-rubber-lo) 6%, var(--color-rubber-hi) 18%,
       var(--color-surface) 40%, var(--color-surface) 60%,
@@ -251,50 +270,6 @@
 :root:fullscreen .fullscreen__enter { display: none; }
 :root:fullscreen .fullscreen__exit { display: inline; }
 
-/* Look switcher: same quiet rubber-and-chrome as the full-screen button */
-.looks {
-  position: fixed;
-  left: 50%;
-  bottom: max(var(--space-3), env(safe-area-inset-bottom));
-  z-index: 3;
-  display: flex;
-  gap: var(--space-1);
-  padding: var(--space-1);
-  translate: -50% 0;
-  border: 1px solid var(--color-rubber-hi);
-  border-radius: var(--radius-pill);
-  background: var(--color-rubber-lo);
-  transition: opacity var(--fade-duration);
-}
-
-.looks button {
-  min-height: var(--tap-target);
-  padding: 0 var(--space-4);
-  border: 0;
-  border-radius: var(--radius-pill);
-  background: none;
-  color: var(--color-chrome);
-  font: 600 var(--font-size-sm) / 1 var(--font-body);
-  white-space: nowrap;
-  cursor: pointer;
-}
-
-.looks button[aria-pressed='true'] {
-  background: var(--color-plate);
-  color: var(--color-chrome-hi);
-  box-shadow: inset 0 1px 0 var(--color-plate-hi);
-}
-
-.looks button:focus-visible {
-  outline: 2px solid var(--color-primary);
-  outline-offset: 1px;
-}
-
-@media (hover: hover) {
-  .looks button:hover { color: var(--color-chrome-hi); }
-}
-
-.looks.is-faded,
 .fullscreen.is-faded {
   opacity: 0;
   pointer-events: none;
@@ -309,14 +284,5 @@
   .fullscreen:hover { color: var(--color-chrome-hi); }
 }
 
-/* Very short screens (a phone on its side): keep every part full size and scroll. */
-@media (max-height: 28rem) {
-  body { overflow-y: auto; }
-  .stungun { height: auto; }
-}
 
-/* Big screens: phone-size device, centred, shown whole. */
-@media (min-width: 40rem) and (min-height: 48rem) {
-  .stage { align-items: center; padding-top: 0; }
-  .stungun { height: var(--device-height-large); }
-}
+
